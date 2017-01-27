@@ -7,7 +7,7 @@ from tflearn.layers.conv import conv_2d, max_pool_2d
 from tflearn.layers.estimator import regression
 import os
 from tflearn import data_utils
-from models.vgg16 import VGG16
+from models.alexnet import AlexNet
 import h5py
 import numpy as np
 
@@ -18,18 +18,20 @@ Y = h5f['Y']
 
 X = np.reshape(X, (400, 128, 128, 3))
 print("creating model...")
-model = VGG16().create([None, 128, 128, 3], 4)
+model = AlexNet().create([None, 128, 128, 3], 4)
 
 # training model
 print("training model...")
 model.fit(X, Y, n_epoch=1, shuffle=True,
           show_metric=True, batch_size=4, snapshot_step=500,
-          snapshot_epoch=False, run_id='vgg_oxflowers17')
+          snapshot_epoch=False, run_id='alexnet')
 
 # Saving trained model
 print("saving model...")
-if not os.path.exists('trained_models/vgg16/fynd/'):
-	os.makedirs('trained_models/vgg16/fynd/')
-model.save('trained_models/vgg16/fynd/my_model.tflearn')
+model_name = 'my_model.tflearn'
+model_path = "{}/{}".format('trained_models/alexnet', model_name)
+if not os.path.exists(model_path):
+	os.makedirs(model_path)
+model.save(model_path)
 
 # print(model.evaluate (X, Y, batch_size=20))
