@@ -12,7 +12,7 @@ import h5py
 import numpy as np
 
 
-h5f = h5py.File('{}/{}'.format( os.getenv("HOME"),'AI/aml_data/fynd/dataset.h5'), 'r')
+h5f = h5py.File('{}/{}'.format( os.getenv("HOME"),'AI/data/fynd/dataset.h5'), 'r')
 X = h5f['X']
 Y = h5f['Y']
 
